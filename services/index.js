@@ -1,6 +1,6 @@
 class Service {
-	static TemplateService () {
-		return new (require('./TemplateService'))
+	static InvitationService () {
+		return new (require('./InvitationService'))
 	}
 }
 

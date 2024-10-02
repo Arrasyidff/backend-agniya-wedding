@@ -10,7 +10,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       event_date: {
-        type: Sequelize.DATEONLY
+        type: Sequelize.BIGINT
       },
       event_name: {
         type: Sequelize.STRING

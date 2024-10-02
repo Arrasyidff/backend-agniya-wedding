@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Invitation.init({
-    event_date: DataTypes.DATEONLY,
+    event_date: DataTypes.BIGINT,
     event_name: DataTypes.STRING
   }, {
     sequelize,
