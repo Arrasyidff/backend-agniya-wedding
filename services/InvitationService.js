@@ -56,18 +56,18 @@ class InvitationService {
 	async update({ id, event_name, event_date, event_time })
 	{
 		try {
-			await this.get(id)
+			const invitation = await this.get(id)
 
 			let [year, month, day] = event_date.split('-') 
 			let [hour, minute] = event_time.split(':') 
 			event_date = new Date(year, (month-1), day, hour, minute).getTime() / 1000
-			const newInvitation = await Invitation.update({ event_date, event_name }, {
+			await Invitation.update({ event_date, event_name }, {
 				where: { id }
 			})
 			return {
 				success: true,
 				message: 'invitation updated',
-				data: newInvitation.id
+				data: invitation.id
 			}
 		} catch (error) {
 			throw error
