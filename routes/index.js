@@ -14,4 +14,10 @@ routes.get('/api/guests/:id', guestController.get)
 routes.patch('/api/guests', guestController.update)
 routes.delete('/api/guests/:id', guestController.delete)
 
+routes.post('/api/guest_invitations', invitationController.createGuestInvitation)
+routes.get('/api/guest_invitations', invitationController.getListGuestInvitation)
+routes.get('/api/guest_invitations/:id', invitationController.getGuestInvitation)
+routes.patch('/api/guest_invitations', invitationController.updateGuestInvitation)
+routes.delete('/api/guest_invitations/:id', invitationController.deleteGuestInvitation)
+
 module.exports = routes

@@ -1,4 +1,4 @@
-const { Invitation } = require('../models')
+const { Invitation, Guest, GuestInvitation } = require('../models')
 
 class InvitationService {
 	async create({ event_name, event_date, event_time })
@@ -83,6 +83,131 @@ class InvitationService {
 			return {
 				success: true,
 				message: 'invitation deleted',
+			}
+		} catch (error) {
+			throw error
+		}
+	}
+
+	async createGuestInvitation({
+		guest_id,
+		invitation_id,
+		attendance_status,
+		guest_count
+	})
+	{
+		try {
+			const newGuestInvitation = await GuestInvitation.create({
+				guest_id,
+				invitation_id,
+				attendance_status,
+				guest_count
+			})
+			return {
+				success: true,
+				message: 'guest invitation created',
+				data: newGuestInvitation.id
+			}
+		} catch (error) {
+			throw error
+		}
+	}
+
+	async getListGuestInvitation(type)
+	{
+		try {
+			let filter = {
+				attributes: { exclude: ['createdAt', 'updatedAt'] },
+				include: [
+					{
+						model: Guest,
+						attributes: { exclude: ['createdAt', 'updatedAt'] },
+						as: 'guest'
+					},
+					{
+						model: Invitation,
+						attributes: { exclude: ['createdAt', 'updatedAt'] },
+						as: 'invitation'
+					}
+				]
+			}
+			if (type) filter.where = { 'invitation_id': type }
+
+			let guestInvitations = await GuestInvitation.findAll(filter)
+			return {
+				success: true,
+				data: guestInvitations
+			}
+		} catch (error) {
+			throw error
+		}
+	}
+
+	async getGuestInvitation(id)
+	{
+		try {
+			let guestInvitation = await GuestInvitation.findByPk(id, {
+				attributes: { exclude: ['createdAt', 'updatedAt'] },
+				include: [
+					{
+						model: Guest,
+						attributes: { exclude: ['createdAt', 'updatedAt'] },
+						as: 'guest'
+					},
+					{
+						model: Invitation,
+						attributes: { exclude: ['createdAt', 'updatedAt'] },
+						as: 'invitation'
+					}
+				]
+			})
+
+			if (!guestInvitation) throw { name: 'not_found' }
+
+			return {
+				success: true,
+				data: guestInvitation
+			}
+		} catch (error) {
+			throw error
+		}
+	}
+
+	async updateGuestInvitation({
+		id,
+		guest_id,
+		invitation_id,
+		attendance_status,
+		guest_count
+	})
+	{
+		try {
+			const guestInvitation = await this.getGuestInvitation(id)
+			await GuestInvitation.update({
+				guest_id,
+				invitation_id,
+				attendance_status,
+				guest_count
+			}, { where: { id } })
+			return {
+				success: true,
+				message: 'guest invitation updated',
+				data: guestInvitation.id
+			}
+		} catch (error) {
+			throw error
+		}
+	}
+
+	async deleteGuestInvitation(id)
+	{
+		try {
+			await this.getGuestInvitation(id)
+
+			await GuestInvitation.destroy({ where: { id } })
+			return {
+				success: true,
+				message: 'guest invitation deleted',
 			}
 		} catch (error) {
 			throw error

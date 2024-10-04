@@ -12,10 +12,12 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       GuestInvitation.belongsTo(models.Guest, {
+        as: 'guest',
         foreignKey: 'guest_id',
         targetKey: 'id'
       })
       GuestInvitation.belongsTo(models.Invitation, {
+        as: 'invitation',
         foreignKey: 'invitation_id',
         targetKey: 'id'
       })
