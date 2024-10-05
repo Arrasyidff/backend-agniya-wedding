@@ -21,6 +21,14 @@ module.exports = {
       guest_count: {
         type: Sequelize.INTEGER
       },
+      attendance: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
+      check_in_time: {
+        type: Sequelize.BIGINT,
+        allowNull: true
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

@@ -121,6 +121,40 @@ class InvitationController {
 			next(error)
 		}
 	}
+
+	static async setGuestAttendance(req, res, next) {
+		try {
+			const { id, attendance_status, guest_count } = req.body
+			const response = await InvitationService().updateGuestInvitation({
+				id,
+				guest_id: undefined,
+				invitation_id: undefined,
+				attendance_status,
+				guest_count
+			})
+			res.status(200).json(response)
+		} catch (error) {
+			next(error)
+		}
+	}
+
+	static async scanGuestBarcode(req, res, next) {
+		try {
+			const { id, attendance } = req.body
+			const response = await InvitationService().updateGuestInvitation({
+				id,
+				guest_id: undefined,
+				invitation_id: undefined,
+				attendance_status: undefined,
+				guest_count: undefined,
+				attendance: attendance == true ? 'present' : 'absent',
+				check_in_time: new Date().getTime()
+			})
+			res.status(200).json(response)
+		} catch (error) {
+			next(error)
+		}
+	}
 }
 
 module.exports = InvitationController

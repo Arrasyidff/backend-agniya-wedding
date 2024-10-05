@@ -27,7 +27,9 @@ module.exports = (sequelize, DataTypes) => {
     guest_id: DataTypes.INTEGER,
     invitation_id: DataTypes.INTEGER,
     attendance_status: DataTypes.BOOLEAN,
-    guest_count: DataTypes.INTEGER
+    guest_count: DataTypes.INTEGER,
+    attendance: DataTypes.STRING,
+    check_in_time: DataTypes.BIGINT
   }, {
     sequelize,
     modelName: 'GuestInvitation',

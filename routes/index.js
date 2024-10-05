@@ -19,5 +19,7 @@ routes.get('/api/guest_invitations', invitationController.getListGuestInvitation
 routes.get('/api/guest_invitations/:id', invitationController.getGuestInvitation)
 routes.patch('/api/guest_invitations', invitationController.updateGuestInvitation)
 routes.delete('/api/guest_invitations/:id', invitationController.deleteGuestInvitation)
+routes.patch('/api/guest_invitations/attendance', invitationController.setGuestAttendance)
+routes.patch('/api/guest_invitations/scan_barcode', invitationController.scanGuestBarcode)
 
 module.exports = routes

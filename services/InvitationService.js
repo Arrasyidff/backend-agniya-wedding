@@ -178,7 +178,9 @@ class InvitationService {
 		guest_id,
 		invitation_id,
 		attendance_status,
-		guest_count
+		guest_count,
+		attendance,
+		check_in_time
 	})
 	{
 		try {
@@ -187,7 +189,9 @@ class InvitationService {
 				guest_id,
 				invitation_id,
 				attendance_status,
-				guest_count
+				guest_count,
+				attendance,
+				check_in_time
 			}, { where: { id } })
 			return {
 				success: true,
