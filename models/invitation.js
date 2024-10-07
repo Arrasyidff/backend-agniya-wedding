@@ -15,6 +15,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "invitation_id",
         sourceKey: "id"
       })
+      Invitation.hasMany(models.Wish, {
+        foreignKey: "invitation_id",
+        sourceKey: "id"
+      })
     }
   }
   Invitation.init({
