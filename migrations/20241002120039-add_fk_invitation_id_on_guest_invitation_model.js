@@ -8,7 +8,7 @@ module.exports = {
       type: 'foreign key',
       name: 'fk_invitation_id',
       references: {
-        table: 'Guests',
+        table: 'Invitations',
         field: 'id'
       },
       onDelete: 'cascade',

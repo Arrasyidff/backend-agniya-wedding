@@ -16,10 +16,16 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       attendance_status: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        allowNull: true
       },
       guest_count: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: true
+      },
+      phone_number: {
+        type: Sequelize.STRING,
+        allowNull: true
       },
       attendance: {
         type: Sequelize.STRING,

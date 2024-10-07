@@ -6,7 +6,7 @@ class InvitationService {
 		try {
 			let [year, month, day] = event_date.split('-') 
 			let [hour, minute] = event_time.split(':') 
-			event_date = new Date(year, (month-1), day, hour, minute).getTime() / 1000
+			event_date = new Date(year, (month-1), day, hour, minute).getTime()
 			const newInvitation = await Invitation.create({ event_date, event_name })
 			return {
 				success: true,
@@ -60,7 +60,7 @@ class InvitationService {
 
 			let [year, month, day] = event_date.split('-') 
 			let [hour, minute] = event_time.split(':') 
-			event_date = new Date(year, (month-1), day, hour, minute).getTime() / 1000
+			event_date = new Date(year, (month-1), day, hour, minute).getTime()
 			await Invitation.update({ event_date, event_name }, {
 				where: { id }
 			})
@@ -91,17 +91,13 @@ class InvitationService {
 
 	async createGuestInvitation({
 		guest_id,
-		invitation_id,
-		attendance_status,
-		guest_count
+		invitation_id
 	})
 	{
 		try {
 			const newGuestInvitation = await GuestInvitation.create({
 				guest_id,
-				invitation_id,
-				attendance_status,
-				guest_count
+				invitation_id
 			})
 			return {
 				success: true,
@@ -179,6 +175,7 @@ class InvitationService {
 		invitation_id,
 		attendance_status,
 		guest_count,
+		phone_number,
 		attendance,
 		check_in_time
 	})
@@ -190,6 +187,7 @@ class InvitationService {
 				invitation_id,
 				attendance_status,
 				guest_count,
+				phone_number,
 				attendance,
 				check_in_time
 			}, { where: { id } })

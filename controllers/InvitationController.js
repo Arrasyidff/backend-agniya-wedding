@@ -54,15 +54,11 @@ class InvitationController {
 		try {
 			const {
 				guest_id,
-				invitation_id,
-				attendance_status,
-				guest_count
+				invitation_id
 			} = req.body
 			const response = await InvitationService().createGuestInvitation({
 				guest_id,
-				invitation_id,
-				attendance_status,
-				guest_count
+				invitation_id
 			})
 			res.status(200).json(response)
 		} catch (error) {
@@ -90,28 +86,6 @@ class InvitationController {
 		}
 	}
 
-	static async updateGuestInvitation(req, res, next) {
-		try {
-			const {
-				id,
-				guest_id,
-				invitation_id,
-				attendance_status,
-				guest_count
-			} = req.body
-			const response = await InvitationService().updateGuestInvitation({
-				id,
-				guest_id,
-				invitation_id,
-				attendance_status,
-				guest_count
-			})
-			res.status(200).json(response)
-		} catch (error) {
-			next(error)
-		}
-	}
-
 	static async deleteGuestInvitation(req, res, next) {
 		try {
 			const { id } = req.params
@@ -124,13 +98,14 @@ class InvitationController {
 
 	static async setGuestAttendance(req, res, next) {
 		try {
-			const { id, attendance_status, guest_count } = req.body
+			const { id, attendance_status, guest_count, phone_number } = req.body
 			const response = await InvitationService().updateGuestInvitation({
 				id,
 				guest_id: undefined,
 				invitation_id: undefined,
 				attendance_status,
-				guest_count
+				guest_count,
+				phone_number
 			})
 			res.status(200).json(response)
 		} catch (error) {
@@ -140,14 +115,15 @@ class InvitationController {
 
 	static async scanGuestBarcode(req, res, next) {
 		try {
-			const { id, attendance } = req.body
+			const { qrcode } = req.body
 			const response = await InvitationService().updateGuestInvitation({
-				id,
+				id: qrcode,
 				guest_id: undefined,
 				invitation_id: undefined,
 				attendance_status: undefined,
 				guest_count: undefined,
-				attendance: attendance == true ? 'present' : 'absent',
+				phone_number: undefined,
+				attendance: 'present',
 				check_in_time: new Date().getTime()
 			})
 			res.status(200).json(response)
