@@ -19,8 +19,7 @@ class WishService {
 	{
 		try {
 			let wishes = await Wish.findAll({
-				attributes: { exclude: ['createdAt', 'updatedAt'] },
-				order: [['updatedAt', 'ASC']],
+				order: [['updatedAt', 'DESC']],
 				include: [
 					{
 						model: Guest,
@@ -42,7 +41,6 @@ class WishService {
 	{
 		try {
 			let wish = await Wish.findByPk(id, {
-				attributes: { exclude: ['createdAt', 'updatedAt'] },
 				include: [
 					{
 						model: Guest,
