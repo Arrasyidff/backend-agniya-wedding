@@ -16,16 +16,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'guest_id',
         targetKey: 'id'
       })
-      Wish.belongsTo(models.Invitation, {
-        as: 'invitation',
-        foreignKey: 'invitation_id',
-        targetKey: 'id'
-      })
     }
   }
   Wish.init({
     guest_id: DataTypes.INTEGER,
-    invitation_id: DataTypes.INTEGER,
     wish: DataTypes.TEXT
   }, {
     sequelize,

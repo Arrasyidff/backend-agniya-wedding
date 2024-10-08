@@ -12,9 +12,6 @@ module.exports = {
       guest_id: {
         type: Sequelize.INTEGER
       },
-      invitation_id: {
-        type: Sequelize.INTEGER
-      },
       wish: {
         type: Sequelize.TEXT
       },

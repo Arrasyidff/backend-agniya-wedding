@@ -6,6 +6,10 @@ class Service {
 	static GuestService () {
 		return new (require('./GuestService'))
 	}
+
+	static WishService () {
+		return new (require('./WishService'))
+	}
 }
 
 module.exports = Service
