@@ -13,7 +13,8 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Guest.hasMany(models.GuestInvitation, {
         foreignKey: "guest_id",
-        sourceKey: "id"
+        sourceKey: "id",
+        as: 'guest_invitations'
       })
       Guest.hasMany(models.Wish, {
         foreignKey: "guest_id",

@@ -27,17 +27,7 @@ class GuestController {
 
 	static async getList(req, res, next) {
 		try {
-			const response = await GuestService().getList()
-			res.status(200).json(response)
-		} catch (error) {
-			next(error)
-		}
-	}
-
-	static async get(req, res, next) {
-		try {
-			const { id } = req.params
-			const response = await GuestService().get(id)
+			const response = await GuestService().getList(req.query)
 			res.status(200).json(response)
 		} catch (error) {
 			next(error)

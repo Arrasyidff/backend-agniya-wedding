@@ -9,17 +9,15 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
-      // define association here
-      Invitation.hasMany(models.GuestInvitation, {
-        foreignKey: "invitation_id",
-        sourceKey: "id"
-      })
-    }
+    static associate(models) {}
   }
   Invitation.init({
-    event_date: DataTypes.BIGINT,
-    event_name: DataTypes.STRING
+    name: DataTypes.STRING,
+    phone_number: DataTypes.STRING,
+    guest_count: DataTypes.INTEGER,
+    attendance: DataTypes.BOOLEAN,
+    wish: DataTypes.TEXT,
+    code_session: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Invitation',

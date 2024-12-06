@@ -16,11 +16,6 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'guest_id',
         targetKey: 'id'
       })
-      GuestInvitation.belongsTo(models.Invitation, {
-        as: 'invitation',
-        foreignKey: 'invitation_id',
-        targetKey: 'id'
-      })
     }
   }
   GuestInvitation.init({

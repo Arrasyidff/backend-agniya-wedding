@@ -1,4 +1,5 @@
-const { Guest } = require('../models')
+const { Guest, GuestInvitation } = require('../models')
+const { Op } = require('sequelize')
 
 class GuestService {
 	async create({
@@ -29,13 +30,36 @@ class GuestService {
 		}
 	}
 
-	async getList()
+	async getList(query=null)
 	{
 		try {
-			let guests = await Guest.findAll({
+			let options = {
 				attributes: { exclude: ['createdAt', 'updatedAt'] },
 				order: [['name', 'ASC']]
-			})
+			}
+
+			const excludeInvitationId = query?.excludeInvitationId ? parseInt(query?.excludeInvitationId) : null
+			if ((excludeInvitationId !== null) && typeof excludeInvitationId === 'number') {
+				const modelGuestInvitation = {
+					model: GuestInvitation,
+					as: 'guest_invitations',
+					attributes: ['guest_id', 'invitation_id'],
+					required: false
+				}
+				if (Array.isArray(options?.include ?? null)) {
+					options.include.push(modelGuestInvitation)
+				} else {
+					options.include = [modelGuestInvitation]
+				}
+				options.where = {
+					[Op.or]: [
+					  { '$guest_invitations.invitation_id$': { [Op.is]: null } }, // Guest tanpa invitation
+					  { '$guest_invitations.invitation_id$': { [Op.ne]: excludeInvitationId } } // Invitation tidak sama dengan excludeInvitationId
+					]
+				};
+			}
+
+			let guests = await Guest.findAll(options)
 
 			return {
 				success: true,

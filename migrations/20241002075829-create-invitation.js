@@ -9,10 +9,22 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      event_date: {
-        type: Sequelize.BIGINT
+      name: {
+        type: Sequelize.STRING
       },
-      event_name: {
+      phone_number: {
+        type: Sequelize.STRING
+      },
+      guest_count: {
+        type: Sequelize.INTEGER
+      },
+      attendance: {
+        type: Sequelize.BOOLEAN
+      },
+      wish: {
+        type: Sequelize.TEXT
+      },
+      code_session: {
         type: Sequelize.STRING
       },
       createdAt: {
